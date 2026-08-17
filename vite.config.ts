@@ -9,6 +9,6 @@ export default defineConfig({
     devServer({
       adapter,
       entry: 'src/index.tsx'
-    })
+    }),
   ]
 })
