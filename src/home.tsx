@@ -60,12 +60,10 @@ home.get('/', (c) => {
         </div>
 
         <div class="relative">
-          <h1 class="text-display font-medium tracking-display">
-            Make no <br/> mistakes.
-          </h1>
+          <img class="ml-[-4%] w-[40%]" src="/static/mistakes.svg" alt="Make no mistakes." />
           <div
             aria-hidden="true"
-            class="bg-sphere shadow-sphere pointer-events-none absolute left-[48%] top-[2%] z-10 size-40 rounded-full sm:size-52 md:left-[34%] md:size-64"
+            class="bg-sphere shadow-sphere pointer-events-none absolute right-[0%] top-[0%] z-10 size-40 rounded-full sm:size-60  md:size-80 lg:size-120 xl:size-180"
           ></div>
         </div>
 
@@ -247,7 +245,9 @@ home.get('/', (c) => {
           </div>
           <div class="flex flex-col justify-between md:col-start-4 md:text-right">
             <span class="text-[0.65rem] case-upper tracking-[0.25em] text-base-content/40">Node // 01</span>
-            <span class="mt-6 text-base-content/60 md:mt-0">&copy; 2026 Sneg Systems</span>
+            <span>
+              <span class="font-brand text-xl bg-base-300 text-white px-2">snegs</span>
+            </span>
           </div>
         </div>
       </footer>

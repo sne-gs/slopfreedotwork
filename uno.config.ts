@@ -26,6 +26,7 @@ export default defineConfig({
 			fonts: {
 				sans: 'Space Grotesk:400,500,600',
 				mono: 'Google Sans Code',
+				brand: 'Micro 5:400'
 			} 
 		})
 	],

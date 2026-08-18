@@ -121,7 +121,9 @@ register.get('/', (c) => {
           </div>
           <div class="md:col-start-4 md:text-right flex flex-col justify-between">
             <span class="text-[0.65rem] case-upper tracking-[0.25em] text-base-content/40">Node // 02</span>
-            <span class="text-base-content/60 mt-6 md:mt-0">&copy; 2026 Sneg Systems</span>
+            <span>
+              <span class="font-brand text-xl bg-base-300 text-white px-2">snegs</span>
+            </span>
           </div>
         </div>
       </footer>
