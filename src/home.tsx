@@ -60,14 +60,14 @@ home.get('/', (c) => {
         </div>
 
         <div class="relative">
-          <img class="ml-[-4%] w-[40%]" src="/static/mistakes.svg" alt="Make no mistakes." />
+          <img class="ml-[-3vw] w-[58%]" src="/static/prompts.svg" alt="Make no mistakes." />
           <div
             aria-hidden="true"
             class="bg-sphere shadow-sphere pointer-events-none absolute right-[0%] top-[0%] z-10 size-40 rounded-full sm:size-60  md:size-80 lg:size-120 xl:size-180"
           ></div>
         </div>
 
-        <p class="mt-10 max-w-md text-sm leading-relaxed text-base-content/50">
+        <p class="mt-8 max-w-md text-sm leading-relaxed text-base-content/50">
           A place for serious businesses<br class="hidden md:block" />
           that don't tolerate AI slop.
         </p>
