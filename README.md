@@ -1,21 +1,31 @@
-```txt
-npm install
-npm run dev
-```
+**slopfree.work**
 
-```txt
-npm run deploy
-```
+a job platform for AI slop free jobs (if they existed)
 
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
+**companies/recruiters**
 
-```txt
-npm run cf-typegen
-```
+1. create an account
+2. post something, hopefully a job
 
-Pass the `CloudflareBindings` as generics when instantiation `Hono`:
+**applicants**
 
-```ts
-// src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>()
-```
+1. create an account
+2. apply for a job
+3. subscribe to job alerts
+
+**faq**
+
+- q: this is useless
+- a: probably
+
+> non-commercial, free to use
+
+**todo**
+
+- [-] home
+- [x] register
+- [x] login
+- [] job posting
+- [] job viewing
+- [] alerts
+- [] about?

@@ -1,14 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "slopfreework",
+  "name": "slopfreedotwork",
   "compatibility_date": "2026-08-14",
   "pages_build_output_dir": "./dist",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "slopfreeworkdb",
+      "database_name": "slopfreeworkdb",
+      "database_id": "e0904554-b262-4bb3-82cb-7a71263633bd",
+    },
+  ],
+  "vars": {
+    "BASE_URL": "https://slopfree.work"
+  },
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",

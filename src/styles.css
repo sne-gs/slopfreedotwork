@@ -1,20 +1,24 @@
-@import '@unocss/reset/normalize.css';
+@import "@unocss/reset/normalize.css";
 
 @unocss;
 
-*, ::before, ::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
   border-color: currentColor;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
-ul, li {
+ul,
+li {
   list-style-type: none !important;
   padding: 0;
   margin: 0;
