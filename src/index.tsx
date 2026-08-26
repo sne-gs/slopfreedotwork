@@ -1,17 +1,17 @@
 import { Hono } from "hono";
-import { renderer } from "./renderer";
-import home from "./home";
-import login from "./login";
-import register from "./register";
+import { applicant } from "./applicant";
+import { open } from "./open";
+import { recruiter } from "./recruiter";
+import { renderer } from "./shared";
 
 const app = new Hono();
 
 app.use(renderer);
 
-app.route("/", home);
+app.route("/applicant", applicant);
 
-app.route("/login", login);
+app.route("/recruiter", recruiter);
 
-app.route("/register", register);
+app.route("/", open);
 
 export default app;

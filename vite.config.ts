@@ -4,14 +4,14 @@ import adapter from "@hono/vite-dev-server/cloudflare";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  build: {
-    ssrEmitAssets: true,
-  },
-  plugins: [
-    build(),
-    devServer({
-      adapter,
-      entry: "src/index.tsx",
-    }),
-  ],
+	build: {
+		ssrEmitAssets: true,
+	},
+	plugins: [
+		build(),
+		devServer({
+			adapter,
+			entry: "src/index.tsx",
+		}),
+	],
 });

@@ -1,0 +1,9 @@
+DELETE FROM activity_feed;
+DELETE FROM job_alerts;
+DELETE FROM applications;
+DELETE FROM blog_posts;
+DELETE FROM jobs;
+DELETE FROM applicants;
+DELETE FROM companies;
+DELETE FROM users;
+DELETE FROM sqlite_sequence;
