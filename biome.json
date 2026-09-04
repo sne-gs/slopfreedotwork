@@ -6,7 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!**/dist", "!!**/public"]
+		"includes": ["**", "!!**/public"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -19,6 +19,27 @@
 			"suspicious": {
 				"noCommentText": "off",
 				"noUnknownAtRules": "off"
+			},
+			"style": {
+				"noRestrictedImports": {
+					"level": "error",
+					"options": {
+						"patterns": [
+							{
+								"group": [
+									"..",
+									"../*",
+									"../**",
+									"../../*",
+									"../../**",
+									"../../../*",
+									"../../../**"
+								],
+								"message": "Use the # alias (package.json \"imports\") instead of parent-relative imports."
+							}
+						]
+					}
+				}
 			}
 		}
 	},

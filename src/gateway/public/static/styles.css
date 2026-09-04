@@ -1,0 +1,374 @@
+@font-face {
+	font-family: "Space Grotesk";
+	src: url("/static/fonts/space-grotesk-latin-wght-normal.woff2")
+		format("woff2");
+	font-weight: 300 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "micro 5";
+	src: url("/static/fonts/micro-5-latin-400-normal.woff2") format("woff2");
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Google Sans Code";
+	src: url("/static/fonts/google-sans-code-latin-wght-normal.woff2")
+		format("woff2");
+	font-weight: 400 800;
+	font-display: swap;
+}
+
+:root {
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.25rem;
+	--space-6: 1.5rem;
+	--space-7: 1.75rem;
+	--space-8: 2rem;
+	--space-9: 2.25rem;
+	--space-10: 2.5rem;
+	--space-11: 2.75rem;
+	--space-12: 3rem;
+	--space-14: 3.5rem;
+	--space-15: 3.75rem;
+	--space-16: 4rem;
+	--space-20: 5rem;
+	--space-24: 6rem;
+	--space-28: 7rem;
+	--space-32: 8rem;
+	--space-36: 9rem;
+	--space-40: 10rem;
+	--space-44: 11rem;
+	--space-48: 12rem;
+	--space-52: 13rem;
+	--space-56: 14rem;
+	--space-60: 15rem;
+	--space-64: 16rem;
+	--space-72: 18rem;
+	--space-80: 20rem;
+	--space-96: 24rem;
+	--space-112: 28rem;
+	--space-120: 30rem;
+	--space-128: 32rem;
+	--space-144: 36rem;
+	--space-160: 40rem;
+	--space-180: 45rem;
+	--space-192: 48rem;
+	--space-256: 64rem;
+
+	--spacing-default: var(--space-4);
+	--spacing-none: 0;
+	--spacing-xs: var(--space-2);
+	--spacing-sm: var(--space-3);
+	--spacing-lg: var(--space-5);
+	--spacing-xl: var(--space-5);
+	--spacing-2xl: var(--space-6);
+	--spacing-3xl: var(--space-9);
+	--spacing-4xl: var(--space-9);
+	--spacing-5xl: var(--space-12);
+	--spacing-6xl: var(--space-15);
+	--spacing-7xl: var(--space-18);
+	--spacing-8xl: var(--space-24);
+	--spacing-9xl: var(--space-32);
+
+	--control-height-sm: var(--space-10);
+	--control-height-md: var(--space-12);
+	--control-height-lg: var(--space-14);
+	--control-pad-sm: var(--space-6);
+	--control-pad-md: var(--space-10);
+	--control-pad-lg: var(--space-12);
+
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-base: 1rem;
+	--text-lg: 1.125rem;
+	--text-xl: 1.25rem;
+	--text-2xl: 1.5rem;
+	--text-3xl: 1.875rem;
+	--text-4xl: 2.25rem;
+	--text-5xl: 3rem;
+	--text-6xl: 3.75rem;
+	--text-7xl: 4.5rem;
+	--text-8xl: 6rem;
+	--text-9xl: 8rem;
+
+	--leading-none: 1;
+	--leading-tight: 1.25;
+	--leading-snug: 1.375;
+	--leading-normal: 1.5;
+	--leading-relaxed: 1.625;
+	--leading-loose: 2;
+
+	--leading-xs: 1rem;
+	--leading-sm: 1.25rem;
+	--leading-base: 1.5rem;
+	--leading-lg: 1.75rem;
+	--leading-xl: 1.75rem;
+	--leading-2xl: 2rem;
+	--leading-3xl: 2.25rem;
+	--leading-4xl: 2.5rem;
+	--leading-5xl: 1;
+	--leading-6xl: 1;
+	--leading-7xl: 1;
+	--leading-8xl: 1;
+	--leading-9xl: 1;
+
+	--weight-thin: 100;
+	--weight-extralight: 200;
+	--weight-light: 300;
+	--weight-normal: 400;
+	--weight-medium: 500;
+	--weight-semibold: 600;
+	--weight-bold: 700;
+	--weight-extrabold: 800;
+	--weight-black: 900;
+
+	--tracking-tighter: -0.05em;
+	--tracking-tight: -0.025em;
+	--tracking-normal: 0em;
+	--tracking-wide: 0.025em;
+	--tracking-wider: 0.05em;
+	--tracking-widest: 0.1em;
+
+	--duration-default: 150ms;
+	--duration-none: 0s;
+	--duration-75: 75ms;
+	--duration-100: 100ms;
+	--duration-fastest: 125ms;
+	--duration-fast: 150ms;
+	--duration-150: 150ms;
+	--duration-200: 200ms;
+	--duration-base: 250ms;
+	--duration-300: 300ms;
+	--duration-spring: 275ms;
+	--duration-500: 500ms;
+	--duration-slow: 400ms;
+	--duration-slowest: 600ms;
+	--duration-700: 700ms;
+	--duration-1000: 1000ms;
+
+	--ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+	--ease-linear: linear;
+	--ease-in: cubic-bezier(0.4, 0, 1, 1);
+	--ease-out: cubic-bezier(0, 0, 0.2, 1);
+	--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+	--ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+	--shadow-default:
+		0 1px 3px 0 oklch(7% 0 0 / 0.1), 0 1px 2px -1px oklch(7% 0 0 / 0.1);
+	--shadow-none: 0 0 oklch(7% 0 0 / 0);
+	--shadow-sm: 0 1px 2px 0 oklch(7% 0 0 / 0.05);
+	--shadow-md:
+		0 4px 6px -1px oklch(7% 0 0 / 0.1), 0 2px 4px -2px oklch(7% 0 0 / 0.1);
+	--shadow-lg:
+		0 10px 15px -3px oklch(7% 0 0 / 0.1), 0 4px 6px -4px oklch(7% 0 0 / 0.1);
+	--shadow-xl:
+		0 20px 25px -5px oklch(7% 0 0 / 0.1), 0 8px 10px -6px oklch(7% 0 0 / 0.1);
+	--shadow-2xl: 0 25px 50px -12px oklch(7% 0 0 / 0.25);
+	--shadow-inner: inset 0 2px 4px 0 oklch(7% 0 0 / 0.05);
+	--shadow-sphere: 0 24px 60px oklch(7% 0 0 / 0.18);
+
+	--z-auto: auto;
+	--z-base: 0;
+	--z-dropdown: 50;
+	--z-sticky: 100;
+	--z-overlay: 200;
+	--z-modal: 1000;
+	--z-toast: 2000;
+
+	--size-xs: 20rem;
+	--size-sm: 24rem;
+	--size-md: 28rem;
+	--size-lg: 32rem;
+	--size-xl: 36rem;
+	--size-2xl: 42rem;
+	--size-3xl: 48rem;
+	--size-4xl: 56rem;
+	--size-5xl: 64rem;
+	--size-6xl: 72rem;
+	--size-7xl: 80rem;
+	--size-prose: 65ch;
+	--size-screen: 100vw;
+
+	--breakpoint-sm: 640px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1280px;
+	--breakpoint-2xl: 1536px;
+
+	--line-width-default: 1px;
+	--line-width-none: 0;
+
+	--ring-width-default: 3px;
+	--ring-width-none: 0;
+}
+
+:root,
+[data-theme="cyberminimalism"] {
+	color-scheme: light;
+
+	--color-base-100: oklch(99% 0 0);
+	--color-base-200: oklch(95% 0 0);
+	--color-base-300: oklch(82% 0.015 250);
+	--color-base-content: oklch(7% 0 0);
+
+	--color-neutral: oklch(7% 0 0);
+	--color-neutral-content: oklch(99% 0 0);
+
+	--color-primary: oklch(55% 0.17 255);
+	--color-primary-content: oklch(99% 0 0);
+
+	--color-info: oklch(62% 0.08 245);
+	--color-info-content: oklch(8% 0 0);
+
+	--color-success: oklch(58% 0.12 145);
+	--color-success-content: oklch(99% 0 0);
+
+	--color-warning: oklch(76% 0.13 85);
+	--color-warning-content: oklch(8% 0 0);
+
+	--color-error: oklch(58% 0.18 25);
+	--color-error-content: oklch(99% 0 0);
+
+	--color-inherit: inherit;
+	--color-current: currentColor;
+	--color-transparent: transparent;
+	--color-black: #000;
+	--color-white: #fff;
+
+	--color-content-muted: color-mix(
+		in oklab,
+		var(--color-base-content) 60%,
+		transparent
+	);
+	--color-content-faint: color-mix(
+		in oklab,
+		var(--color-base-content) 50%,
+		transparent
+	);
+	--color-brand-accent: var(--color-error);
+
+	--radius-default: 0;
+	--radius-sm: 0;
+	--radius-md: 0;
+	--radius-lg: 0;
+	--radius-xl: 0;
+	--radius-2xl: 0;
+	--radius-3xl: 0;
+	--radius-full: 9999px;
+
+	--text-display: clamp(4rem, 10vw, 9rem);
+	--leading-display: 0.76;
+	--text-label: 0.65rem;
+	--leading-label: 1;
+	--text-note: 0.6rem;
+	--leading-note: 1;
+
+	--tracking-display: -0.08em;
+	--tracking-label: 0.28em;
+	--tracking-rule: 0.24em;
+	--tracking-tab: 0.2em;
+	--tracking-button: 0.25em;
+	--tracking-note: 0.22em;
+
+	--font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+	--font-mono: "Google Sans Code", ui-monospace, monospace;
+	--font-brand: "Micro 5", sans-serif;
+	--font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+*,
+::before,
+::after {
+	box-sizing: border-box;
+	border-width: 0;
+	border-style: solid;
+	border-color: currentColor;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+	color: inherit;
+}
+
+body {
+	min-height: 100dvh;
+	background-color: var(--color-base-300);
+	color: var(--color-base-content);
+	font-family: var(--font-sans);
+	font-size: var(--text-base);
+	line-height: var(--leading-base);
+}
+
+.app-shell {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-height: 100dvh;
+	gap: 1px;
+}
+
+ul,
+li {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+.bg-sphere {
+	background: linear-gradient(
+		145deg,
+		var(--color-base-300),
+		var(--color-info),
+		var(--color-base-content)
+	);
+}
+
+.bg-dot-fade {
+	background-color: var(--color-base-100);
+	background-image:
+		linear-gradient(to right, var(--color-base-100), transparent),
+		radial-gradient(var(--color-base-content) 1px, transparent 0);
+	background-size:
+		100% 100%,
+		40px 40px;
+	background-position:
+		0 0,
+		0 0;
+}
+
+@keyframes marquee {
+	0% {
+		transform: translate(0, 0);
+	}
+	100% {
+		transform: translate(-50%, 0);
+	}
+}
+
+.animate-marquee {
+	animation: marquee 40s linear infinite;
+}

@@ -8,9 +8,7 @@
 		"patch:workerd": "GLIBC=$(guix build glibc | grep -v debug | grep -v static | head -n 1); GCC=$(guix build gcc-toolchain | grep -v debug | grep -v static | head -n 1); patchelf --set-interpreter \"$GLIBC/lib/ld-linux-x86-64.so.2\" --set-rpath \"$GLIBC/lib:$GCC/lib\" node_modules/@cloudflare/workerd-linux-64/bin/workerd || true",
 		"patch:biome": "GLIBC=$(guix build glibc | grep -v debug | grep -v static | head -n 1); GCC=$(guix build gcc-toolchain | grep -v debug | grep -v static | head -n 1); patchelf --set-interpreter \"$GLIBC/lib/ld-linux-x86-64.so.2\" --set-rpath \"$GLIBC/lib:$GCC/lib\" node_modules/@biomejs/cli-linux-x64/biome || true",
 		"postinstall": "npm run patch:workerd && npm run patch:biome",
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "npm run build && wrangler pages dev dist",
+		"dev": "wrangler dev",
 		"deploy": "npm run build && wrangler pages deploy dist",
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
 		"format": "biome format --write .",
@@ -25,25 +23,23 @@
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"dependencies": {
-		"@editorjs/editorjs": "^2.31.6",
 		"@starfederation/datastar-sdk": "^1.0.0",
-		"@unocss/reset": "^66.7.5",
-		"hono": "^4.13.2",
-		"resend": "^6.21.0",
-		"unocss": "^66.7.5"
+		"hono": "^4.13.5",
+		"resend": "^6.21.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.10",
-		"@hono/vite-build": "^1.11.1",
-		"@hono/vite-dev-server": "^0.26.1",
-		"@unocss/postcss": "^66.7.5",
 		"@vtsls/language-server": "^0.3.0",
 		"typescript": "^7.0.2",
-		"vite": "^8.1.4",
 		"wrangler": "^4.110.0"
 	},
 	"allowScripts": {
 		"esbuild@0.28.1": true,
 		"workerd@1.20260811.1": true
+	},
+	"imports": {
+		"#gateway/shared": "./src/gateway/shared/index.ts",
+		"#manager/*": "./src/manager/*/index.ts",
+		"#utility/types": "./src/utility/types.ts"
 	}
 }
