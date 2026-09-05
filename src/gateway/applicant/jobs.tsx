@@ -2,6 +2,9 @@ import { type Context, Hono } from "hono";
 import { css, cx } from "hono/css";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import { type AppEnv, Footer, Main, Nav } from "#gateway/shared";
+import { JobsManager } from "#manager/jobs";
+import { questionsFromSchema } from "#utility/questions";
+import { JobView } from "./JobView";
 
 export const jobs = new Hono();
 
@@ -45,7 +48,7 @@ const jobsHeadingClass = css`
 `;
 
 const jobsFilterSectionClass = css`
-		background-color: var(--color-base-100);
+                background-color: var(--color-base-100);
     padding: var(--space-6);
     @media (min-width: 768px) {
         padding: var(--space-6) var(--space-12);
@@ -136,7 +139,7 @@ const jobsFilterButtonClass = css`
 `;
 
 const jobsListSectionClass = css`
-		background-color: var(--color-base-100);
+                background-color: var(--color-base-100);
     flex: 1;
     padding: var(--space-10) var(--space-6);
     @media (min-width: 768px) {
@@ -456,7 +459,7 @@ jobs.get("/", async (c: Context<AppEnv>) => {
 	const offset = (currentPage - 1) * perPage;
 
 	const jobsStmt = c.env.slopfreeworkdb.prepare(`
-    SELECT j.title, c.name as company, j.location, j.salary_range as salary, j.job_type as type, j.slug, c.slug as company_slug 
+    SELECT j.id, j.title, c.name as company, j.location, j.salary_range as salary, j.job_type as type, j.slug, c.slug as company_slug 
     FROM jobs j 
     JOIN companies c ON j.company_id = c.id 
     WHERE j.status = 'active' 
@@ -527,7 +530,10 @@ jobs.get("/", async (c: Context<AppEnv>) => {
 						) : (
 							pageRoles.map((role) => (
 								<li>
-									<a href={`/jobs/${role.slug}`} class={jobItemLinkClass}>
+									<a
+										href={`/applicant/jobs/${role.id}`}
+										class={jobItemLinkClass}
+									>
 										<span class={jobTitleClass}>{role.title}</span>
 										<span class={jobDetailClass}>{role.company}</span>
 										<span class={jobDetailClass}>{role.location}</span>
@@ -683,6 +689,33 @@ jobs.get("/", async (c: Context<AppEnv>) => {
 						</div>
 					</form>
 				</dialog>
+			</Main>
+			<Footer />
+		</Fragment>,
+	);
+});
+
+/**
+ * The applicant-rendered job view. It reuses the recruiter's add/edit page
+ * as the design (that page is intentionally WYSIWYG for what applicants
+ * see), with every editing control replaced by its read-only counterpart.
+ * Only live postings are visible; drafts and closed jobs 404.
+ */
+jobs.get("/:id", async (c: Context<AppEnv>) => {
+	const id = c.req.param("id") ?? "";
+	if (!/^\d+$/.test(id)) return c.notFound();
+
+	const job = await new JobsManager(c).getActiveJobWithCompany(Number(id));
+	if (!job) return c.notFound();
+
+	return c.render(
+		<Fragment>
+			<Nav user={c.get("user")} />
+			<Main>
+				<JobView
+					job={job}
+					questions={questionsFromSchema(job.customFormSchema)}
+				/>
 			</Main>
 			<Footer />
 		</Fragment>,

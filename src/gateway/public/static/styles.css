@@ -79,8 +79,9 @@
 	--control-height-sm: var(--space-10);
 	--control-height-md: var(--space-12);
 	--control-height-lg: var(--space-14);
-	--control-pad-sm: var(--space-6);
-	--control-pad-md: var(--space-10);
+
+	--control-pad-sm: var(--space-2);
+	--control-pad-md: var(--space-6);
 	--control-pad-lg: var(--space-12);
 
 	--text-xs: 0.75rem;

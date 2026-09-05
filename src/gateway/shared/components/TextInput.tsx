@@ -22,6 +22,7 @@ const inputLabelBaseClass = css`
 export const TextInput = ({
 	name,
 	label,
+	value,
 	placeholder,
 	isRequired = false,
 	inputClass,
@@ -30,6 +31,7 @@ export const TextInput = ({
 }: {
 	readonly name: string;
 	readonly label?: string;
+	readonly value?: string;
 	readonly placeholder?: string;
 	readonly isRequired?: boolean;
 	readonly inputClass?: Promise<string>;
@@ -50,6 +52,7 @@ export const TextInput = ({
 			<input
 				class={inputClasses}
 				type="text"
+				value={value}
 				placeholder={inputPlaceholder}
 				id={name}
 				name={name}

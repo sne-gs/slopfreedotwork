@@ -17,7 +17,7 @@ export interface Company {
 	readonly logoUrl: string | null;
 	readonly primaryColor: string | null;
 	readonly secondaryColor: string | null;
-	readonly contactEmail: string | null;
+	// readonly contactEmail: string | null;
 	readonly website: string | null;
 	readonly description: string | null;
 	readonly createdAt: string;
@@ -35,4 +35,22 @@ export interface Role {
 	readonly customFormSchema: string | null;
 	readonly status: "active" | "closed" | "draft";
 	readonly createdAt: string;
+}
+
+export type QuestionType = "text" | "textarea" | "select" | "file";
+
+export interface Question {
+	readonly id: string;
+	readonly type: QuestionType;
+	readonly label: string;
+	readonly required: boolean;
+	readonly options: readonly string[];
+}
+
+export interface DraftInput {
+	readonly title: string;
+	readonly location: string;
+	readonly jobType: string;
+	readonly description: string;
+	readonly questions: readonly Question[];
 }

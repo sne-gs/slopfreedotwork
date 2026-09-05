@@ -40,6 +40,7 @@ CREATE TABLE jobs (
     custom_form_schema TEXT,
     status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'closed', 'draft')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE
 );
 

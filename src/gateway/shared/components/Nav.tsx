@@ -1,7 +1,7 @@
 import { css } from "hono/css";
 import type { Child } from "hono/jsx";
 import type { User } from "#utility/types";
-import { Button } from "./Button";
+import { Link } from "./Link";
 
 const nav = css`
     position: relative;
@@ -181,48 +181,36 @@ const Hamburger = ({ children }: { children: Child }) => (
 	</details>
 );
 
-type LinkSize = "small" | "medium" | "large";
-
-const NavLink = ({
-	href,
-	size,
-	children,
-}: {
-	href: string;
-	size: LinkSize;
-	children: string;
-}) => (
-	<Button href={href} variant="link" size={size}>
-		{children}
-	</Button>
+const NavLink = ({ href, children }: { href: string; children: string }) => (
+	<a href={href}>{children}</a>
 );
 
 export const Nav = ({ user }: { user: User | null }) => {
-	const renderLinks = (linkSize: LinkSize, ctaSize: LinkSize) => (
+	const renderLinks = () => (
 		<>
-			<NavLink href="/applicant/jobs" size={linkSize}>
+			<Link href="/applicant/jobs" size="sm">
 				Jobs
-			</NavLink>
-			<NavLink href="/applicant/companies" size={linkSize}>
+			</Link>
+			<Link href="/applicant/companies" size="sm">
 				Companies
-			</NavLink>
+			</Link>
 			{user ? (
 				<>
-					<NavLink href={`/${user.role}/dashboard`} size={linkSize}>
+					<Link href={`/${user.role}/dashboard`} size="sm">
 						Dashboard
-					</NavLink>
-					<NavLink href="/logout" size={linkSize}>
-						Sign Out
-					</NavLink>
+					</Link>
+					<Link href="/logout" size="sm">
+						Sign-Out
+					</Link>
 				</>
 			) : (
 				<>
-					<NavLink href="/login" size={linkSize}>
-						Sign In
-					</NavLink>
-					<Button href="/register" size={ctaSize}>
+					<Link href="/login" size="sm">
+						Sign-In
+					</Link>
+					<Link variant="buttonContrast" href="/register" size="sm">
 						Get Access
-					</Button>
+					</Link>
 				</>
 			)}
 		</>
@@ -238,10 +226,10 @@ export const Nav = ({ user }: { user: User | null }) => {
 				.work
 			</a>
 
-			<div class={desktopLinks}>{renderLinks("small", "medium")}</div>
+			<div class={desktopLinks}>{renderLinks()}</div>
 
 			<Hamburger>
-				<div class={mobileDropdown}>{renderLinks("large", "large")}</div>
+				<div class={mobileDropdown}>{renderLinks()}</div>
 			</Hamburger>
 		</nav>
 	);

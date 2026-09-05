@@ -19,6 +19,7 @@
 		"db:clear": "wrangler d1 execute slopfreeworkdb --local --file=./db/clear.sql",
 		"db:seed": "wrangler d1 execute slopfreeworkdb --local --file=./db/seed.sql",
 		"db:local": "wrangler d1 execute slopfreeworkdb --local --file=./db/schema.sql",
+		"db:upgrade": "wrangler d1 execute slopfreeworkdb --local --file=./db/upgrade-drafts.sql",
 		"db:remote": "wrangler d1 execute slopfreeworkdb --remote --file=./db/schema.sql",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -40,6 +41,7 @@
 	"imports": {
 		"#gateway/shared": "./src/gateway/shared/index.ts",
 		"#manager/*": "./src/manager/*/index.ts",
+		"#utility/questions": "./src/utility/questions.ts",
 		"#utility/types": "./src/utility/types.ts"
 	}
 }

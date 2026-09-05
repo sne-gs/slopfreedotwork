@@ -1,86 +1,78 @@
 import { css, cx } from "hono/css";
 import type { Child, FC } from "hono/jsx";
 
-type Variant = "primary" | "secondary" | "link";
-type Size = "small" | "medium" | "large";
+type Variant = "base" | "contrast";
+
+type Size = "sm" | "md" | "lg";
 
 const baseClass = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-button);
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color var(--duration-fast) var(--ease-out);
-` satisfies Promise<string>;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-button);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out);
+`;
 
-const variantClasses = {
-	primary: css`
-        border: 0;
-        background-color: var(--color-neutral);
-        color: var(--color-neutral-content);
-        &:hover {
-            background-color: color-mix(in oklab, var(--color-neutral) 85%, transparent);
-        }
-    `,
-	secondary: css`
-        border: var(--line-width-default) solid var(--color-base-content);
-        background-color: var(--color-base-100);
-        &:hover {
-            background-color: var(--color-base-200);
-        }
-    `,
-	link: css`
-        border: 0;
-        background: none;
-        color: currentColor;
-        text-decoration: underline;
-        text-underline-offset: 2px;
-        &:hover {
-            text-decoration: none;
-        }
-    `,
-} satisfies Record<Variant, Promise<string>>;
+const variantClasses: Record<Variant, ReturnType<typeof css>> = {
+	contrast: css`
+    border: 0;
+    background-color: var(--color-neutral);
+    color: var(--color-neutral-content);
+    &:hover {
+      background-color: color-mix(in oklab, var(--color-neutral) 85%, transparent);
+    }
+  `,
+	base: css`
+    border: var(--line-width-default) solid var(--color-base-content);
+    background-color: var(--color-base-100);
+    &:hover {
+      background-color: var(--color-base-200);
+    }
+  `,
+};
 
-const sizeClasses = {
-	small: css`
-        height: var(--control-height-sm);
-        padding-inline: var(--control-pad-sm);
-        font-size: var(--text-xs);
-    `,
-	medium: css`
-        height: var(--control-height-md);
-        padding-inline: var(--control-pad-md);
-        font-size: var(--text-xs);
-    `,
-	large: css`
-        height: var(--control-height-lg);
-        padding-inline: var(--control-pad-lg);
-        font-size: var(--text-sm);
-    `,
-} satisfies Record<Size, Promise<string>>;
+const sizeClasses: Record<Size, ReturnType<typeof css>> = {
+	sm: css`
+    height: var(--control-height-sm);
+    padding-inline: var(--control-pad-sm);
+    font-size: var(--text-xs);
+  `,
+	md: css`
+    height: var(--control-height-md);
+    padding-inline: var(--control-pad-md);
+    font-size: var(--text-xs);
+	`,
+	lg: css`
+    height: var(--control-height-lg);
+    padding-inline: var(--control-pad-lg);
+    font-size: var(--text-sm);
+  `,
+};
 
 const fullWidthClass = css`
-    width: 100%;
+  width: 100%;
 `;
 
 export interface Props {
-	variant?: Variant;
-	size?: Size;
-	href?: string;
-	type?: "button" | "submit" | "reset";
-	fullWidth?: boolean;
-	/** disallowed */
-	class?: never;
-	children: Child;
+	readonly variant?: Variant;
+	readonly size?: Size;
+	readonly name?: string;
+	readonly type?: "button" | "submit" | "reset";
+	readonly value?: string;
+	readonly disabled?: boolean;
+	readonly full?: boolean;
+	/** disallowed **/
+	readonly class?: never;
+	readonly children: Child;
 }
 
 export const Button: FC<Props> = ({
-	variant = "primary",
-	size = "medium",
-	fullWidth = false,
-	href,
+	variant = "base",
+	size = "md",
+	full = false,
 	children,
 	...props
 }) => {
@@ -88,18 +80,11 @@ export const Button: FC<Props> = ({
 		baseClass,
 		variantClasses[variant],
 		sizeClasses[size],
-		fullWidth ? fullWidthClass : "",
+		full ? fullWidthClass : "",
 	);
 
-	if (href) {
-		return (
-			<a href={href} class={classes} {...props}>
-				{children}
-			</a>
-		);
-	}
 	return (
-		<button type="button" class={classes} {...props}>
+		<button class={classes} {...props}>
 			{children}
 		</button>
 	);

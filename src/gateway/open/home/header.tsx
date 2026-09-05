@@ -1,6 +1,6 @@
+import { Link } from "#gateway/shared";
 import { css, cx } from "hono/css";
 import type { FC } from "hono/jsx";
-import { Button } from "#gateway/shared";
 
 const labelClass = css`
     font-size: var(--text-label);
@@ -101,10 +101,12 @@ export const Header: FC = () => (
 			<br class={brHiddenMdBlockClass} /> for real jobs.
 		</p>
 		<div class={heroActionsClass}>
-			<Button href="/register">Add your company</Button>
-			<Button href="/jobs" variant="secondary" size="medium">
+			<Link variant="buttonBase" href="/register">
+				Add your company
+			</Link>
+			<Link variant="buttonContrast" href="/jobs">
 				Find a job
-			</Button>
+			</Link>
 		</div>
 	</header>
 );

@@ -1,6 +1,7 @@
 export * from "./Button";
 export * from "./Col";
 export * from "./Footer";
+export * from "./Link";
 export * from "./Main";
 export * from "./MarkdownInput";
 export * from "./Nav";
