@@ -22,10 +22,14 @@ a job platform for AI slop free jobs (if they existed)
 
 **todo**
 
-- [-] home
+- [x] home
 - [x] register
 - [x] login
-- [] job posting
-- [] job viewing
-- [] alerts
-- [] about?
+- [x] recruiter job crud
+- [ ] recruiter dashboard
+- [x] applicant job view
+- [x] applicant job apply
+- [ ] applicant dashboard
+- [x] applicant companies view
+- [ ] filters + alerts
+- [ ] about / info
