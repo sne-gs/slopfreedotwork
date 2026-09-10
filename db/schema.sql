@@ -2,6 +2,7 @@ CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
+    name VARCHAR(255),
     role VARCHAR(20) NOT NULL CHECK (role IN ('recruiter', 'applicant')),
     email_verified INTEGER NOT NULL DEFAULT 0,
     verification_token VARCHAR(255),

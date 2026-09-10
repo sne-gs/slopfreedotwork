@@ -18,6 +18,12 @@ a job platform for AI slop free jobs (if they existed)
 - q: this is useless
 - a: probably
 
+**dependencies**
+
+- cloudflare workerd
+- unocss
+- biome 
+
 **license**
 
 - gplv3
