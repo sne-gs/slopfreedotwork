@@ -18,7 +18,9 @@ a job platform for AI slop free jobs (if they existed)
 - q: this is useless
 - a: probably
 
-> non-commercial, free to use
+**license**
+
+- gplv3
 
 **todo**
 
