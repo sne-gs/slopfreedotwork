@@ -1,0 +1,10 @@
+PRAGMA foreign_keys = OFF;
+DROP TABLE IF EXISTS applications;
+DROP TABLE IF EXISTS applicants;
+DROP TABLE IF EXISTS jobs;
+DROP TABLE IF EXISTS blog_posts;
+DROP TABLE IF EXISTS job_alerts;
+DROP TABLE IF EXISTS activity_feed;
+DROP TABLE IF EXISTS companies;
+DROP TABLE IF EXISTS users;
+PRAGMA foreign_keys = ON;

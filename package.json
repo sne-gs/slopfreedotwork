@@ -1,0 +1,55 @@
+{
+	"name": "slopfreedotwork",
+	"description": "The home for slop free jobs.",
+	"author": "snegs",
+	"repository": "https://codeberg.org/snegs/slopfreework",
+	"type": "module",
+	"scripts": {
+		"uno": "unocss \"src/**/*.{ts,tsx}\" -o src/gateway/public/static/uno.css",
+		"uno:watch": "unocss \"src/**/*.{ts,tsx}\" -o src/gateway/public/static/uno.css --watch",
+		"build": "npm run uno",
+		"patch:workerd": "GLIBC=$(guix build glibc | grep -v debug | grep -v static | head -n 1); GCC=$(guix build gcc-toolchain | grep -v debug | grep -v static | head -n 1); patchelf --set-interpreter \"$GLIBC/lib/ld-linux-x86-64.so.2\" --set-rpath \"$GLIBC/lib:$GCC/lib\" node_modules/@cloudflare/workerd-linux-64/bin/workerd || true",
+		"patch:biome": "GLIBC=$(guix build glibc | grep -v debug | grep -v static | head -n 1); GCC=$(guix build gcc-toolchain | grep -v debug | grep -v static | head -n 1); patchelf --set-interpreter \"$GLIBC/lib/ld-linux-x86-64.so.2\" --set-rpath \"$GLIBC/lib:$GCC/lib\" node_modules/@biomejs/cli-linux-x64/biome || true",
+		"postinstall": "npm run patch:workerd && npm run patch:biome",
+		"dev": "concurrently --names uno,wrangler --kill-others \"npm:uno:watch\" \"wrangler dev\"",
+		"deploy": "npm run build && wrangler pages deploy dist",
+		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
+		"format": "biome format --write .",
+		"lint": "biome check .",
+		"fix": "biome check --write .",
+		"typecheck": "tsc --noEmit",
+		"check": "biome check . && tsc --noEmit",
+		"db:clear": "wrangler d1 execute slopfreedotworkdb --local --file=./db/clear.sql",
+		"db:seed": "wrangler d1 execute slopfreedotworkdb --local --file=./db/seed.sql",
+		"db:local": "wrangler d1 execute slopfreedotworkdb --local --file=./db/schema.sql",
+		"db:remote": "wrangler d1 execute slopfreedotworkdb --remote --file=./db/schema.sql",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"@starfederation/datastar-sdk": "^1.0.0",
+		"hono": "^4.13.5",
+		"resend": "^6.21.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.10",
+		"@iconify-json/pixelarticons": "^1.2.9",
+		"@unocss/cli": "^66.10.0",
+		"@unocss/language-server": "^66.10.0",
+		"@unocss/preset-icons": "^66.10.0",
+		"@vtsls/language-server": "^0.3.0",
+		"concurrently": "^10.0.5",
+		"typescript": "^7.0.2",
+		"unocss": "^66.10.0",
+		"wrangler": "^4.110.0"
+	},
+	"allowScripts": {
+		"esbuild@0.28.1": true,
+		"workerd@1.20260811.1": true
+	},
+	"imports": {
+		"#gateway/shared": "./src/gateway/shared/index.ts",
+		"#manager/*": "./src/manager/*/index.ts",
+		"#utility/questions": "./src/utility/questions.ts",
+		"#utility/types": "./src/utility/types.ts"
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "slopfreedotwork",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-08-14",
+	"d1_databases": [
+		{
+			"binding": "db",
+			"database_name": "slopfreedotworkdb",
+			"database_id": "3f7b1ac0-1251-42b9-8bd1-0fa25c12feca"
+		}
+	],
+	"vars": {
+		"BASE_URL": "https://slopfree.work"
+	},
+	"assets": {
+		"directory": "src/gateway/public"
+	}
+}
