@@ -35,7 +35,7 @@ a job platform for AI slop free jobs (if they existed)
 - [x] login
 - [x] recruiter job crud
 - [x] recruiter dashboard
-- [ ] recruiter applicants page
+- [x] recruiter applicants page
 - [x] applicant job view
 - [x] applicant job apply
 - [ ] applicant dashboard
