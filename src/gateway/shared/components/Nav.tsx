@@ -74,9 +74,15 @@ export const Nav = ({ user }: { user: User | null }) => {
 			<Link href={`/${user?.role ?? "applicant"}/jobs`} size="sm">
 				Jobs
 			</Link>
-			<Link href={`/${user?.role ?? "applicant"}/companies`} size="sm">
-				Companies
-			</Link>
+			{user?.role === "recruiter" ? (
+				<Link href="/recruiter/applications" size="sm">
+					Applications
+				</Link>
+			) : (
+				<Link href={`/${user?.role ?? "applicant"}/companies`} size="sm">
+					Companies
+				</Link>
+			)}
 			{user ? (
 				<>
 					<Link href={`/${user.role}/dashboard`} size="sm">
