@@ -135,7 +135,7 @@ export const JobForm: FC<JobFormProps> = ({
 							{statusText}
 						</span>
 						<Link variant="buttonBase" href={cancelHref}>
-							Cancel
+							Back
 						</Link>
 						{discardEndpoint && (
 							<button

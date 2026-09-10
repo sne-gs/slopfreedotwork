@@ -1,6 +1,6 @@
-INSERT INTO users (email, password_hash, role, email_verified) VALUES
-('dev@email.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'recruiter', 1),
-('applicant@email.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'applicant', 1);
+INSERT INTO users (email, password_hash, name, role, email_verified) VALUES
+('dev@email.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Mister Recruiter', 'recruiter', 1),
+('applicant@email.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Mister Applicant', 'applicant', 1);
 
 INSERT INTO companies (owner_id, name, slug, logo_url, primary_color, secondary_color, contact_email, website, description) VALUES
 (1, 'Datastar Systems', 'datastar', '/static/datastar-logo.svg', 'oklch(55% 0.17 255)', 'oklch(62% 0.08 245)', 'hire@datastar.dev', 'https://datastar.dev', 'Building the future of data infrastructure.');

@@ -21,6 +21,16 @@ interface Company {
 	readonly open: number;
 }
 
+export interface RecentJobRow {
+	readonly id: number;
+	readonly title: string;
+	readonly slug: string;
+	readonly status: "active" | "closed" | "draft";
+	readonly location: string | null;
+	readonly jobType: string | null;
+	readonly updatedAt: string | null;
+}
+
 export class AnalysisManager {
 	#c: Context<AppEnv>;
 
@@ -28,17 +38,30 @@ export class AnalysisManager {
 		this.#c = c;
 	}
 
+	public async filterRecentJobsAsync(
+		companyId: number,
+	): Promise<RecentJobRow[]> {
+		const jobsRes = await this.#c.env.db
+			.prepare(`
+      SELECT j.id, j.title, j.slug, j.status, j.location, j.job_type AS jobType, j.updated_at AS updatedAt
+      FROM jobs j
+      WHERE j.company_id = ?1 AND j.parent_job_id IS NULL
+      ORDER BY j.updated_at DESC, j.id DESC
+      LIMIT 3
+    `)
+			.bind(companyId)
+			.all<RecentJobRow>();
+		const jobs = jobsRes.results || [];
+		return jobs;
+	}
+
 	public async filterStatsAsync() {
 		const statsRes = await this.#c.env.db.batch<{ count: number }>([
 			this.#c.env.db.prepare(
 				"SELECT COUNT(*) as count FROM jobs WHERE status = 'active'",
 			),
-			this.#c.env.db.prepare(
-				"SELECT COUNT(*) as count FROM companies",
-			),
-			this.#c.env.db.prepare(
-				"SELECT COUNT(*) as count FROM applicants",
-			),
+			this.#c.env.db.prepare("SELECT COUNT(*) as count FROM companies"),
+			this.#c.env.db.prepare("SELECT COUNT(*) as count FROM applicants"),
 		]);
 
 		const rolesCount = statsRes[0].results?.[0]?.count || 0;
