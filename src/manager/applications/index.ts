@@ -28,6 +28,23 @@ export interface ApplicationListRow {
 	readonly applicantHeadline: string | null;
 }
 
+export interface ApplicationDetailRow {
+	readonly id: number;
+	readonly status: ApplicationStatus;
+	readonly appliedAt: string | null;
+	readonly formResponses: string | null;
+	readonly jobId: number;
+	readonly jobTitle: string;
+	readonly jobStatus: "active" | "closed" | "draft";
+	readonly customFormSchema: string | null;
+	readonly applicantName: string;
+	readonly applicantHeadline: string | null;
+	readonly applicantBio: string | null;
+	readonly applicantResumeUrl: string | null;
+	readonly applicantEmail: string;
+	readonly applicantSince: string | null;
+}
+
 export interface ApplicationFilterOptions {
 	readonly companyId: number;
 	readonly search: string;
@@ -145,5 +162,41 @@ export class ApplicationsManager {
 			.bind(...params, options.limit, options.offset)
 			.all<ApplicationListRow>();
 		return res.results || [];
+	}
+
+	public async getByIdForCompanyAsync(
+		applicationId: number,
+		companyId: number,
+	): Promise<ApplicationDetailRow | null> {
+		return await this.#c.env.db
+			.prepare(`
+      SELECT a.id, a.status, a.applied_at AS appliedAt,
+             a.form_responses AS formResponses,
+             j.id AS jobId, j.title AS jobTitle, j.status AS jobStatus,
+             j.custom_form_schema AS customFormSchema,
+             COALESCE(NULLIF(ap.full_name, ''), u.name, u.email) AS applicantName,
+             ap.headline AS applicantHeadline, ap.bio AS applicantBio,
+             ap.resume_url AS applicantResumeUrl,
+             u.email AS applicantEmail, u.created_at AS applicantSince
+      ${APPLICATIONS_FROM}
+      WHERE a.id = ? AND j.company_id = ?
+      LIMIT 1
+    `)
+			.bind(applicationId, companyId)
+			.first<ApplicationDetailRow>();
+	}
+
+	public async updateStatusAsync(
+		applicationId: number,
+		companyId: number,
+		status: ApplicationStatus,
+	): Promise<boolean> {
+		const res = await this.#c.env.db
+			.prepare(
+				"UPDATE applications SET status = ? WHERE id = ? AND job_id IN (SELECT id FROM jobs WHERE company_id = ?)",
+			)
+			.bind(status, applicationId, companyId)
+			.run();
+		return (res.meta.changes ?? 0) > 0;
 	}
 }
