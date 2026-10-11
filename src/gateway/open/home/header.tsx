@@ -87,10 +87,10 @@ export const Header: FC = () => (
 			<br class="hidden md:block" /> for real jobs.
 		</p>
 		<div class={heroActionsClass}>
-			<Link variant="buttonBase" href="/register">
+			<Link variant="bordered" href="/register">
 				Add your company
 			</Link>
-			<Link variant="buttonContrast" href="/jobs">
+			<Link variant="solid" href="/jobs">
 				Find a job
 			</Link>
 		</div>

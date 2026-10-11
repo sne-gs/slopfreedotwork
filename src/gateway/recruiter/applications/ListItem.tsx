@@ -20,6 +20,7 @@ const rowLinkClass = cx(
 	"md:px-2",
 	"py-5",
 	"transition-colors",
+	"no-underline",
 );
 
 const applicantNameClass = cx("font-semibold", "md:text-base", "text-sm");

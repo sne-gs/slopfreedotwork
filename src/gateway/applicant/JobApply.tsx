@@ -1,6 +1,6 @@
 import type { JSX } from "hono/jsx/jsx-runtime";
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { Button, Col, cx, Link, Row } from "#gateway/shared";
+import { Button, cx, Link } from "#gateway/shared";
 import type { JobWithCompanyRow } from "#manager/jobs";
 import type { Question } from "#utility/types";
 
@@ -177,11 +177,11 @@ export const JobApply = ({ job, questions, error }: JobApplyProps) => (
 			action={`/applicant/jobs/${job.id}/apply`}
 			enctype="multipart/form-data"
 		>
-			<Col template="auto auto 1fr auto auto" gap="md">
+			<div class="grid-auto-rows-[auto_auto_1fr_auto_auto] grid gap-4">
 				<div class={jobContainerClass}>
 					<h1 class={jobTitleClass}>Apply</h1>
 				</div>
-				<Row gap="md">
+				<div class="grid-auto-rows grid gap-4">
 					<div class={jobContainerClass}>
 						<span class={jobMetaLabelClass}>Role</span>
 						<span class={jobMetaValueClass}>{job.title}</span>
@@ -194,7 +194,7 @@ export const JobApply = ({ job, questions, error }: JobApplyProps) => (
 						<span class={jobMetaLabelClass}>Job Type</span>
 						<span class={jobMetaValueClass}>{job.jobType ?? "—"}</span>
 					</div>
-				</Row>
+				</div>
 				{error ? <div class={errorBannerClass}>{error}</div> : null}
 				<div class={sectionClass}>
 					<div class={sectionHeaderClass}>
@@ -228,16 +228,16 @@ export const JobApply = ({ job, questions, error }: JobApplyProps) => (
 						))
 					)}
 				</div>
-				<Row template="1fr auto auto" gap="sm">
+				<div class="grid-auto-cols-[1fr_auto_auto] grid gap-4">
 					<span class={postedByClass}>Posted by {job.companyName}</span>
-					<Link variant="buttonBase" href={`/applicant/jobs/${job.id}`}>
+					<Link variant="bordered" href={`/applicant/jobs/${job.id}`}>
 						Back
 					</Link>
-					<Button type="submit" variant="contrast">
+					<Button type="submit" variant="solid">
 						Submit application
 					</Button>
-				</Row>
-			</Col>
+				</div>
+			</div>
 		</form>
 	</Fragment>
 );

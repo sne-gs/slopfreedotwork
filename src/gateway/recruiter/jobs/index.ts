@@ -7,6 +7,8 @@ import { edit } from "./edit";
 import { list } from "./list";
 import { questions } from "./questions";
 
+export * from "./list";
+
 export const jobs = new Hono();
 
 jobs.route("/", list);

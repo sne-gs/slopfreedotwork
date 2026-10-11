@@ -48,6 +48,7 @@
 	},
 	"imports": {
 		"#gateway/shared": "./src/gateway/shared/index.ts",
+		"#gateway/recruiter/jobs": "./src/gateway/recruiter/jobs/index.ts",
 		"#manager/*": "./src/manager/*/index.ts",
 		"#utility/questions": "./src/utility/questions.ts",
 		"#utility/types": "./src/utility/types.ts"

@@ -275,7 +275,7 @@ view.get("/", async (c: Context<AppEnv>) => {
 							)}
 						</div>
 					</div>
-					<Link variant="buttonBase" href="/recruiter/applications">
+					<Link variant="bordered" href="/recruiter/applications">
 						<div class="i-pixelarticons:arrow-left mr-2 text-2xl" />
 						Back to applications
 					</Link>

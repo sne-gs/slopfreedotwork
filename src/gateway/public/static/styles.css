@@ -29,6 +29,13 @@
   src: url(/static/fonts/google-sans-code-latin-wght-normal.woff2)format("woff2");
 }
 
+@font-face {
+  font-family: "Pixel Code";
+  font-weight: 400;
+  font-display: swap;
+  src: url(/static/fonts/pixel-code.woff2)format("woff2");
+}
+
 :root {
   color-scheme: light;
 }
@@ -84,7 +91,6 @@ ul {
 
 a {
   color: inherit;
-  text-decoration: inherit;
 }
 
 :focus-visible {

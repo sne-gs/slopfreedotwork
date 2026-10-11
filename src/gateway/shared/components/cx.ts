@@ -1,6 +1,11 @@
-export type ClassValue = string | false | null | undefined | ClassValue[];
+export type ClassValue =
+	| string
+	| false
+	| null
+	| undefined
+	| readonly ClassValue[];
 
-const flatten = (classes: ClassValue[]): string[] =>
+const flatten = (classes: readonly ClassValue[]): string[] =>
 	classes.flatMap((c) =>
 		Array.isArray(c)
 			? flatten(c)
@@ -9,5 +14,5 @@ const flatten = (classes: ClassValue[]): string[] =>
 				: [],
 	);
 
-export const cx = (...classes: ClassValue[]): string =>
+export const cx = (...classes: readonly ClassValue[]): string =>
 	flatten(classes).join(" ");

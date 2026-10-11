@@ -50,7 +50,7 @@ export default defineConfig({
 		boxShadow: cyberminimalism.boxShadow,
 		fontFamily: {
 			sans: '"Space Grotesk", ui-sans-serif, system-ui, sans-serif',
-			mono: '"Google Sans Code", ui-monospace, monospace',
+			mono: '"Pixel Code", ui-monospace, monospace',
 			brand: '"Micro 5", sans-serif',
 			serif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
 		},

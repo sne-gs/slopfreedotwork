@@ -2,14 +2,12 @@ import type { FC } from "hono/jsx";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import {
 	Button,
-	Col,
 	cx,
 	Footer,
 	Link,
 	Main,
 	MarkdownInput,
 	Nav,
-	Row,
 	TextInput,
 } from "#gateway/shared";
 import type { Question, User } from "#utility/types";
@@ -90,7 +88,7 @@ export const JobForm: FC<JobFormProps> = ({
 		<Nav user={user} />
 		<Main>
 			<form class={formClass} noValidate {...autosave(draftEndpoint)}>
-				<Col template="auto auto 1fr auto auto" gap="md">
+				<div class="grid h-full grid-rows-[auto_auto_1fr_auto_auto] gap-4">
 					<TextInput
 						name="jobTitle"
 						isRequired
@@ -98,7 +96,7 @@ export const JobForm: FC<JobFormProps> = ({
 						inputClass={cx(jobInputClass, jobTitleInputClass)}
 						placeholder="Job title"
 					/>
-					<Row gap="md">
+					<div class="grid gap-4 sm:grid-cols-none md:grid-cols-2">
 						<TextInput
 							inputClass={jobInputClass}
 							inputContainerClass={jobInputContainerClass}
@@ -117,7 +115,7 @@ export const JobForm: FC<JobFormProps> = ({
 							value={jobType}
 							placeholder="Job type (full-time, part-time, contract, etc)"
 						/>
-					</Row>
+					</div>
 					<MarkdownInput
 						name="jobDescription"
 						placeholder="Enter the job description here (accepts markdown)"
@@ -127,14 +125,19 @@ export const JobForm: FC<JobFormProps> = ({
 						questions={questions}
 						questionsEndpoint={questionsEndpoint}
 					/>
-					<Row
-						template={discardEndpoint ? "1fr auto auto auto" : "1fr auto auto"}
-						gap="sm"
+					<div
+						class={cx(
+							"grid",
+							"gap-4",
+							discardEndpoint
+								? "grid-cols-[1fr_auto_auto_auto]"
+								: "grid-cols-[1fr_auto_auto]",
+						)}
 					>
 						<span id="save-status" class={saveStatusClass}>
 							{statusText}
 						</span>
-						<Link variant="buttonBase" href={cancelHref}>
+						<Link variant="bordered" href={cancelHref}>
 							Back
 						</Link>
 						{discardEndpoint && (
@@ -148,13 +151,13 @@ export const JobForm: FC<JobFormProps> = ({
 						)}
 						<Button
 							type="button"
-							variant="contrast"
+							variant="solid"
 							data-on:click={`@post('${publishEndpoint}', {contentType: 'form'})`}
 						>
 							{mode === "linkedDraft" ? "Publish changes" : "Publish"}
 						</Button>
-					</Row>
-				</Col>
+					</div>
+				</div>
 			</form>
 		</Main>
 		<Footer />

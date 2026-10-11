@@ -21,7 +21,7 @@ interface Company {
 	readonly open: number;
 }
 
-export interface RecentJobRow {
+export interface Job {
 	readonly id: number;
 	readonly title: string;
 	readonly slug: string;
@@ -38,9 +38,7 @@ export class AnalysisManager {
 		this.#c = c;
 	}
 
-	public async filterRecentJobsAsync(
-		companyId: number,
-	): Promise<RecentJobRow[]> {
+	public async filterRecentJobsAsync(companyId: number): Promise<Job[]> {
 		const jobsRes = await this.#c.env.db
 			.prepare(`
       SELECT j.id, j.title, j.slug, j.status, j.location, j.job_type AS jobType, j.updated_at AS updatedAt
@@ -50,7 +48,7 @@ export class AnalysisManager {
       LIMIT 3
     `)
 			.bind(companyId)
-			.all<RecentJobRow>();
+			.all<Job>();
 		const jobs = jobsRes.results || [];
 		return jobs;
 	}

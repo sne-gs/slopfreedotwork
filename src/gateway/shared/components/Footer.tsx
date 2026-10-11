@@ -34,6 +34,7 @@ const metaLabel = cx("text-base-content/50");
 const brandChipContainer = cx("rotate-[-8deg]", "select-none");
 
 const brandChip = cx(
+	"no-underline",
 	"bg-[#FAA11B]",
 	"border-2",
 	"border-base-content",

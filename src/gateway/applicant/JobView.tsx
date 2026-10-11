@@ -1,5 +1,5 @@
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { Col, cx, Link, Row, renderMarkdown } from "#gateway/shared";
+import { cx, Link, renderMarkdown } from "#gateway/shared";
 import type { JobWithCompanyRow } from "#manager/jobs";
 
 const viewClass = cx("bg-base-100", "h-full", "p-9");
@@ -62,11 +62,11 @@ export const JobView = ({ job, applied }: JobViewProps) => {
 	return (
 		<Fragment>
 			<div class={viewClass}>
-				<Col template="auto auto 1fr auto auto" gap="md">
+				<div class="grid-auto-rows-[auto_auto_1fr_auto_auto] grid gap-4">
 					<div class={jobContainerClass}>
 						<h1 class={jobTitleClass}>{job.title}</h1>
 					</div>
-					<Row gap="md">
+					<div class="grid-auto-rows grid gap-4">
 						<div class={jobContainerClass}>
 							<span class={jobMetaLabelClass}>Location</span>
 							<span class={jobMetaValueClass}>{job.location ?? "—"}</span>
@@ -75,30 +75,27 @@ export const JobView = ({ job, applied }: JobViewProps) => {
 							<span class={jobMetaLabelClass}>Job Type</span>
 							<span class={jobMetaValueClass}>{job.jobType ?? "—"}</span>
 						</div>
-					</Row>
+					</div>
 					{bodyHtml ? (
 						<div
 							class={proseClass}
 							dangerouslySetInnerHTML={{ __html: bodyHtml }}
 						/>
 					) : null}
-					<Row template="1fr auto auto" gap="sm">
+					<div class="grid-auto-cols-[1fr_auto_auto] grid gap-2">
 						<span class={postedByClass}>Posted by {job.companyName}</span>
-						<Link variant="buttonBase" href="/applicant/jobs">
+						<Link variant="bordered" href="/applicant/jobs">
 							Back
 						</Link>
 						{applied ? (
 							<span class={appliedChipClass}>Applied</span>
 						) : (
-							<Link
-								variant="buttonContrast"
-								href={`/applicant/jobs/${job.id}/apply`}
-							>
+							<Link variant="solid" href={`/applicant/jobs/${job.id}/apply`}>
 								Apply
 							</Link>
 						)}
-					</Row>
-				</Col>
+					</div>
+				</div>
 			</div>
 		</Fragment>
 	);

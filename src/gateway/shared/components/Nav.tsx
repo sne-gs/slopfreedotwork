@@ -71,33 +71,37 @@ const Hamburger = ({ children }: { children: Child }) => (
 export const Nav = ({ user }: { user: User | null }) => {
 	const links = (
 		<>
-			<Link href={`/${user?.role ?? "applicant"}/jobs`} size="sm">
+			<Link variant="nav" href={`/${user?.role ?? "applicant"}/jobs`} size="sm">
 				Jobs
 			</Link>
 			{user?.role === "recruiter" ? (
-				<Link href="/recruiter/applications" size="sm">
+				<Link variant="nav" href="/recruiter/applications" size="sm">
 					Applications
 				</Link>
 			) : (
-				<Link href={`/${user?.role ?? "applicant"}/companies`} size="sm">
+				<Link
+					variant="nav"
+					href={`/${user?.role ?? "applicant"}/companies`}
+					size="sm"
+				>
 					Companies
 				</Link>
 			)}
 			{user ? (
 				<>
-					<Link href={`/${user.role}/dashboard`} size="sm">
+					<Link variant="nav" href={`/${user.role}/dashboard`} size="sm">
 						Dashboard
 					</Link>
-					<Link href="/logout" size="sm">
+					<Link variant="nav" href="/logout" size="sm">
 						Sign-Out
 					</Link>
 				</>
 			) : (
 				<>
-					<Link href="/login" size="sm">
+					<Link variant="nav" href="/login" size="sm">
 						Sign-In
 					</Link>
-					<Link variant="buttonContrast" href="/register" size="sm">
+					<Link variant="solid" href="/register" size="sm">
 						Get Access
 					</Link>
 				</>

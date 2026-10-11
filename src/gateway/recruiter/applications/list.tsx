@@ -1,6 +1,18 @@
 import { type Context, Hono } from "hono";
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { type AppEnv, cx, Footer, Main, Nav } from "#gateway/shared";
+import {
+	type AppEnv,
+	Badge,
+	Button,
+	Caption,
+	cx,
+	Footer,
+	Header,
+	Icon,
+	Main,
+	Nav,
+	TextInput,
+} from "#gateway/shared";
 import {
 	type ApplicationListRow,
 	type ApplicationStatus,
@@ -12,21 +24,7 @@ import { ApplicationListItem } from "./ListItem";
 
 const labelClass = cx("text-label", "tracking-label", "uppercase");
 
-const sectionClass = cx("bg-base-100", "md:p-12", "p-10", "px-6");
-
-const headerMetaRowClass = cx(
-	labelClass,
-	"mb-8 flex items-center justify-between text-base-content/50",
-);
-
-const resultsCountClass = cx("bg-base-200", "px-2");
-
-const headingClass = cx(
-	"font-medium",
-	"leading-[0.9]",
-	"text-5xl",
-	"tracking-[-0.06em]",
-);
+const sectionClass = cx("bg-base-100", "md:p-12", "p-10", "px-6", "flex-1");
 
 const filterRowClass = cx(
 	"flex",
@@ -35,22 +33,7 @@ const filterRowClass = cx(
 	"md:flex-row",
 	"md:items-center",
 	"md:justify-between",
-);
-
-const searchFormClass = cx("flex", "flex-1", "gap-4", "items-center");
-
-const searchWrapClass = cx("max-w-xl", "relative", "w-full");
-
-const searchInputClass = cx(
-	"bg-transparent",
-	"border-b",
-	"border-base-content",
-	"focus:outline-none",
-	"h-12",
-	"p-0",
-	"placeholder:text-base-content/50",
-	"text-sm",
-	"w-full",
+	"pb-6",
 );
 
 const searchClearClass = cx(
@@ -63,41 +46,9 @@ const searchClearClass = cx(
 	"top-1/2",
 );
 
-const searchButtonClass = cx(
-	"bg-neutral",
-	"border-0",
-	"cursor-pointer",
-	"duration-150",
-	"ease-out",
-	"h-12",
-	"hover:bg-neutral/85",
-	"px-6",
-	"text-neutral-content",
-	"text-xs",
-	"tracking-button",
-	"transition-colors",
-	"uppercase",
-);
-
-const filtersButtonClass = cx(
-	"bg-base-100",
-	"border",
-	"border-base-content",
-	"cursor-pointer",
-	"duration-150",
-	"ease-out",
-	"h-12",
-	"hover:bg-base-200",
-	"px-6",
-	"text-xs",
-	"tracking-button",
-	"transition-colors",
-	"uppercase",
-);
-
 const stateRowClass = cx(
 	labelClass,
-	"mb-6 flex flex-wrap gap-x-6 gap-y-2 text-base-content/50",
+	"mb-6 flex flex-wrap justify-between gap-x-6 gap-y-2 text-base-content/50",
 );
 
 const listClass = cx("border-base-300", "border-t");
@@ -362,63 +313,53 @@ list.get("/", async (c: Context<AppEnv>) => {
 		<Fragment>
 			<Nav user={user} />
 			<Main>
-				<section class={sectionClass}>
-					<div class={headerMetaRowClass}>
-						<span>Recruiter {"//"} Applications</span>
-						<span class={resultsCountClass}>{total} results</span>
-					</div>
-					<h1 class={headingClass}>Applicant pipeline.</h1>
-				</section>
-
+				<Header
+					heading="Applications"
+					labels={["Recruiter", "Applications"]}
+					action={<Badge border="none">{total} results</Badge>}
+				/>
 				<section class={cx(sectionClass, "md:py-8", "py-6")}>
 					<div class={filterRowClass}>
 						<form
 							action="/recruiter/applications"
 							method="get"
-							class={searchFormClass}
+							class="contents"
 						>
 							<input type="hidden" name="status" value={statuses.join(",")} />
 							{includeClosed && <input type="hidden" name="closed" value="1" />}
-							<div class={searchWrapClass}>
-								<input
-									name="q"
-									type="text"
-									placeholder="Search applicants, emails, roles..."
-									class={searchInputClass}
-									value={query}
-								/>
-								{query && (
-									<a
-										href={`/recruiter/applications${buildPath(state, { q: "", page: 1 })}`}
-										class={searchClearClass}
-										aria-label="Clear search"
-									>
-										✕
-									</a>
-								)}
-							</div>
-							<button type="submit" class={searchButtonClass}>
+							<TextInput
+								name="q"
+								placeholder="Search applicants, emails, or roles"
+								value={query}
+							/>
+							{query && (
+								<a
+									href={`/recruiter/applications${buildPath(state, { q: "", page: 1 })}`}
+									class={searchClearClass}
+									aria-label="Clear search"
+								>
+									✕
+								</a>
+							)}
+							<Button type="submit" variant="solid">
+								<Icon name="i-pixelarticons:search" />
 								Search
-							</button>
+							</Button>
 						</form>
-						<button
+						<Button
 							type="button"
-							onclick="document.getElementById('applications-filters-modal').showModal()"
-							class={filtersButtonClass}
+							data-on:click="document.getElementById('applications-filters-modal').showModal()"
 						>
+							<Icon name="i-pixelarticons:filter" />
 							Filters
-						</button>
+						</Button>
 					</div>
-				</section>
 
-				<section class={cx(sectionClass, "flex-1")}>
 					<div class={stateRowClass}>
-						<span>
-							Pipeline {"//"} status: {statuses.join(", ")}
-						</span>
-						<span>
-							{includeClosed ? "Closed roles: shown" : "Closed roles: hidden"}
-						</span>
+						<Caption labels={["Status", statuses.join(" + ")]} />
+						<Caption
+							labels={["Closed Roles", includeClosed ? "Shown" : "Hidden"]}
+						/>
 					</div>
 					{company ? (
 						rows.length > 0 ? (

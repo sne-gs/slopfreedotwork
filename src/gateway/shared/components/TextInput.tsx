@@ -2,6 +2,8 @@ import { cx } from "./cx";
 
 type Size = "sm" | "md" | "lg";
 
+const inputContainerBaseClass = cx("w-full");
+
 const inputBaseClass = cx(
 	"bg-transparent",
 	"border-b",
@@ -41,12 +43,16 @@ export const TextInput = ({
 	readonly inputLabelClass?: string;
 	readonly inputContainerClass?: string;
 }) => {
+	const inputContainerClasses = cx(
+		inputContainerBaseClass,
+		inputContainerClass,
+	);
 	const inputLabelClasses = cx(inputLabelBaseClass, inputLabelClass);
 	const inputClasses = cx(inputBaseClass, sizeClasses[size], inputClass);
 	const inputPlaceholder =
 		isRequired && !label ? `${placeholder}*` : placeholder;
 	return (
-		<div class={inputContainerClass ?? ""}>
+		<div class={inputContainerClasses}>
 			{label && (
 				<label for={name} class={inputLabelClasses}>
 					{label} {isRequired ? "*" : null}

@@ -1,5 +1,5 @@
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { Button, Checkbox, cx, Row, TextInput } from "#gateway/shared";
+import { Button, Checkbox, cx, TextInput } from "#gateway/shared";
 import type { Question } from "#utility/types";
 
 export type { Question } from "#utility/types";
@@ -34,8 +34,6 @@ const titleClass = cx(
 const addIconClass = cx("i-pixelarticons-plus", "mr-2", "text-2xl");
 
 const emptyClass = cx("p-4", "text-base-content/50", "text-center", "text-sm");
-
-const rowGapClass = cx("gap-2");
 
 const questionRowClass = cx(
 	"bg-base-200",
@@ -143,7 +141,7 @@ const QuestionRow = ({
 	readonly postAction: string;
 }) => (
 	<Fragment>
-		<Row template="auto auto auto 1fr auto auto" classes={rowGapClass}>
+		<div class="grid grid-cols-[auto_auto_auto_1fr_auto_auto] gap-2">
 			<Button
 				size="sm"
 				type="button"
@@ -205,7 +203,7 @@ const QuestionRow = ({
 			>
 				<div class={removeIconClass} />
 			</Button>
-		</Row>
+		</div>
 		<div
 			class={cx(optionsWrapClass, question.type !== "select" && "hidden")}
 			data-options
