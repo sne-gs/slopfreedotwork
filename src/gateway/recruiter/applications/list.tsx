@@ -1,7 +1,6 @@
 import { type Context, Hono } from "hono";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import {
-	type AppEnv,
 	Badge,
 	Button,
 	Caption,
@@ -11,6 +10,7 @@ import {
 	Icon,
 	Main,
 	Nav,
+	type ReqUsrEnv,
 	TextInput,
 } from "#gateway/shared";
 import {
@@ -262,10 +262,8 @@ const buildPath = (
 
 export const list = new Hono();
 
-list.get("/", async (c: Context<AppEnv>) => {
+list.get("/", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
-	if (!user) return c.redirect("/login");
-
 	const query = (c.req.query("q") || "").trim();
 	const includeClosed = c.req.query("closed") === "1";
 	const parsedStatuses = parseStatuses(c.req.queries("status") || []);

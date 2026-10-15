@@ -1,6 +1,3 @@
-import type { Context } from "hono";
-import type { AppEnv } from "#gateway/shared";
-
 interface Stat {
 	readonly label: string;
 	readonly value: string;
@@ -32,14 +29,14 @@ export interface Job {
 }
 
 export class AnalysisManager {
-	#c: Context<AppEnv>;
+	#db: D1Database;
 
-	constructor(c: Context<AppEnv>) {
-		this.#c = c;
+	constructor(db: D1Database) {
+		this.#db = db;
 	}
 
 	public async filterRecentJobsAsync(companyId: number): Promise<Job[]> {
-		const jobsRes = await this.#c.env.db
+		const jobsRes = await this.#db
 			.prepare(`
       SELECT j.id, j.title, j.slug, j.status, j.location, j.job_type AS jobType, j.updated_at AS updatedAt
       FROM jobs j
@@ -54,12 +51,12 @@ export class AnalysisManager {
 	}
 
 	public async filterStatsAsync() {
-		const statsRes = await this.#c.env.db.batch<{ count: number }>([
-			this.#c.env.db.prepare(
+		const statsRes = await this.#db.batch<{ count: number }>([
+			this.#db.prepare(
 				"SELECT COUNT(*) as count FROM jobs WHERE status = 'active'",
 			),
-			this.#c.env.db.prepare("SELECT COUNT(*) as count FROM companies"),
-			this.#c.env.db.prepare("SELECT COUNT(*) as count FROM applicants"),
+			this.#db.prepare("SELECT COUNT(*) as count FROM companies"),
+			this.#db.prepare("SELECT COUNT(*) as count FROM applicants"),
 		]);
 
 		const rolesCount = statsRes[0].results?.[0]?.count || 0;
@@ -79,7 +76,7 @@ export class AnalysisManager {
 	}
 
 	public async filterRolesAsync() {
-		const rolesRes = await this.#c.env.db
+		const rolesRes = await this.#db
 			.prepare(`
       SELECT j.title, c.name AS company, j.location, j.salary_range AS salary, j.job_type AS type, j.slug 
       FROM jobs j 
@@ -94,7 +91,7 @@ export class AnalysisManager {
 	}
 
 	public async filterCompaniesAsync() {
-		const companiesRes = await this.#c.env.db
+		const companiesRes = await this.#db
 			.prepare(`
       SELECT c.name, c.slug, COUNT(j.id) AS open 
       FROM companies c 

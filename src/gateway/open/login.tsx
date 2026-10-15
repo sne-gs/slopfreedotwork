@@ -2,7 +2,7 @@ import { ServerSentEventGenerator } from "@starfederation/datastar-sdk/web";
 import { type Context, Hono } from "hono";
 import { setSignedCookie } from "hono/cookie";
 import { html } from "hono/html";
-import { type AppEnv, cx } from "#gateway/shared";
+import { cx, type OptUsrEnv } from "#gateway/shared";
 
 export const login = new Hono();
 
@@ -264,7 +264,7 @@ login.get("/", (c) => {
 	);
 });
 
-login.post("/", async (c: Context<AppEnv>) => {
+login.post("/", async (c: Context<OptUsrEnv>) => {
 	const body = await c.req.parseBody();
 	const email = body.email as string;
 	const pass = body.pass as string;

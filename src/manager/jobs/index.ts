@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import type { AppEnv } from "#gateway/shared";
+import type { ReqUsrEnv } from "#gateway/shared";
 import type { DraftInput, Question } from "#utility/types";
 
 export interface CompanyRow {
@@ -35,9 +35,9 @@ const JOB_COLUMNS =
 	"id, title, slug, description, location, job_type AS jobType, custom_form_schema AS customFormSchema, status, parent_job_id AS parentJobId, created_at AS createdAt, updated_at AS updatedAt";
 
 export class JobsManager {
-	#c: Context<AppEnv>;
+	#c: Context<ReqUsrEnv>;
 
-	constructor(c: Context<AppEnv>) {
+	constructor(c: Context<ReqUsrEnv>) {
 		this.#c = c;
 	}
 

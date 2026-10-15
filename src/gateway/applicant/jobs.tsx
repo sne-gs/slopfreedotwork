@@ -1,6 +1,6 @@
 import { type Context, Hono } from "hono";
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { type AppEnv, cx, Footer, Main, Nav } from "#gateway/shared";
+import { cx, Footer, Main, Nav, type ReqUsrEnv } from "#gateway/shared";
 import { ApplicationsManager } from "#manager/applications";
 import { JobsManager } from "#manager/jobs";
 import { questionsFromSchema } from "#utility/questions";
@@ -337,7 +337,7 @@ const filtersApplyClass = cx(
 	"uppercase",
 );
 
-jobs.get("/", async (c: Context<AppEnv>) => {
+jobs.get("/", async (c: Context<ReqUsrEnv>) => {
 	const page = Number(c.req.query("page") || "1");
 	const query = (c.req.query("q") || "").trim();
 	const search = `%${query}%`;
@@ -605,18 +605,18 @@ const fileToBase64 = async (file: File): Promise<string> => {
 	return btoa(binary);
 };
 
-const activeJob = async (c: Context<AppEnv>, rawId: string) => {
+const activeJob = async (c: Context<ReqUsrEnv>, rawId: string) => {
 	if (!/^\d+$/.test(rawId)) return null;
 	return new JobsManager(c).getActiveJobWithCompany(Number(rawId));
 };
 
-const appliedState = async (c: Context<AppEnv>, jobId: number) => {
+const appliedState = async (c: Context<ReqUsrEnv>, jobId: number) => {
 	const user = c.get("user");
 	if (!user) return false;
 	return new ApplicationsManager(c).hasApplied(jobId, user.id);
 };
 
-jobs.get("/:id", async (c: Context<AppEnv>) => {
+jobs.get("/:id", async (c: Context<ReqUsrEnv>) => {
 	const job = await activeJob(c, c.req.param("id") ?? "");
 	if (!job) return c.notFound();
 
@@ -633,7 +633,7 @@ jobs.get("/:id", async (c: Context<AppEnv>) => {
 	);
 });
 
-jobs.get("/:id/apply", async (c: Context<AppEnv>) => {
+jobs.get("/:id/apply", async (c: Context<ReqUsrEnv>) => {
 	const job = await activeJob(c, c.req.param("id") ?? "");
 	if (!job) return c.notFound();
 
@@ -655,7 +655,7 @@ jobs.get("/:id/apply", async (c: Context<AppEnv>) => {
 	);
 });
 
-jobs.post("/:id/apply", async (c: Context<AppEnv>) => {
+jobs.post("/:id/apply", async (c: Context<ReqUsrEnv>) => {
 	const job = await activeJob(c, c.req.param("id") ?? "");
 	if (!job) return c.notFound();
 

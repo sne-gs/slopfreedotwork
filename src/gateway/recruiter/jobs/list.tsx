@@ -1,7 +1,6 @@
 import { type Context, Hono } from "hono";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import {
-	type AppEnv,
 	Badge,
 	Button,
 	Caption,
@@ -12,6 +11,7 @@ import {
 	Link,
 	Main,
 	Nav,
+	type ReqUsrEnv,
 	shortDate,
 } from "#gateway/shared";
 import { JobsManager } from "#manager/jobs";
@@ -140,7 +140,7 @@ export const JobList = ({
 
 export const list = new Hono();
 
-list.get("/", async (c: Context<AppEnv>) => {
+list.get("/", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
 	if (!user) return c.redirect("/login");
 

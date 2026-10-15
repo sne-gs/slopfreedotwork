@@ -1,12 +1,12 @@
 import { type Context, Hono } from "hono";
-import type { AppEnv } from "#gateway/shared";
+import type { ReqUsrEnv } from "#gateway/shared";
 import { parseDraftForm } from "./draftInput";
 import { resolveJobTarget } from "./draftSupport";
 import { savedAtText, statusResponse } from "./patch";
 
 export const draft = new Hono();
 
-draft.post("/", async (c: Context<AppEnv>) => {
+draft.post("/", async (c: Context<ReqUsrEnv>) => {
 	const resolution = await resolveJobTarget(c);
 	if (!resolution.ok) return resolution.response;
 	const { mgr, jobId, job } = resolution;

@@ -1,7 +1,7 @@
 import { type Context, Hono } from "hono";
 import type { Child } from "hono/jsx";
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { type AppEnv, cx, Footer, Link, Main, Nav } from "#gateway/shared";
+import { cx, Footer, Link, Main, Nav, type ReqUsrEnv } from "#gateway/shared";
 import {
 	type ApplicationStatus,
 	ApplicationsManager,
@@ -213,7 +213,7 @@ const resolveResume = (answers: ApplicationAnswers): ResumeEmbed => {
 
 export const view = new Hono();
 
-view.get("/", async (c: Context<AppEnv>) => {
+view.get("/", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
 	if (!user) return c.redirect("/login");
 

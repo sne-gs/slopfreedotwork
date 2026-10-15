@@ -1,5 +1,5 @@
 import { type Context, Hono } from "hono";
-import type { AppEnv } from "#gateway/shared";
+import type { ReqUsrEnv } from "#gateway/shared";
 import { parseDraftForm } from "./draftInput";
 import { resolveJobTarget } from "./draftSupport";
 import { editQuestionsEndpoint } from "./endpoints";
@@ -31,7 +31,7 @@ const parseAction = (raw: FormEntry | null): QuestionAction | null => {
 	return null;
 };
 
-questions.post("/", async (c: Context<AppEnv>) => {
+questions.post("/", async (c: Context<ReqUsrEnv>) => {
 	const resolution = await resolveJobTarget(c);
 	if (!resolution.ok) return resolution.response;
 	const { mgr, jobId, job } = resolution;

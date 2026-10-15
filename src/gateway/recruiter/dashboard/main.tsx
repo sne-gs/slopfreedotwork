@@ -1,6 +1,6 @@
 import { type Context, Hono } from "hono";
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { type AppEnv, Footer, Main, Nav } from "#gateway/shared";
+import { Footer, Main, Nav, type ReqUsrEnv } from "#gateway/shared";
 import { AnalysisManager } from "#manager/analysis";
 import { Company } from "./Company";
 import { Jobs } from "./Jobs";
@@ -8,7 +8,7 @@ import { Profile, type Recruiter } from "./Profile";
 
 export const main = new Hono();
 
-main.get("/", async (c: Context<AppEnv>) => {
+main.get("/", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
 	if (!user) return c.redirect("/login");
 
@@ -28,7 +28,7 @@ main.get("/", async (c: Context<AppEnv>) => {
 		.first<Company>();
 	if (!company) return c.notFound();
 
-	const analysis = new AnalysisManager(c);
+	const analysis = new AnalysisManager(c.env.db);
 	const jobs = await analysis.filterRecentJobsAsync(company.id);
 
 	return c.render(

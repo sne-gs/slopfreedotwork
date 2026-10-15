@@ -1,12 +1,12 @@
 import { Hono } from "hono";
-import { useAuth } from "#gateway/shared";
+import { useOptionalUser } from "#gateway/shared";
 import { home } from "./home";
 import { login } from "./login";
 import { register } from "./register";
 
 export const open = new Hono();
 
-open.use(useAuth);
+open.use(useOptionalUser);
 
 open.route("/", home);
 

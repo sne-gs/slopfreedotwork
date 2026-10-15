@@ -1,11 +1,11 @@
 import { type Context, Hono } from "hono";
-import type { AppEnv } from "#gateway/shared";
+import type { ReqUsrEnv } from "#gateway/shared";
 import { JobsManager } from "#manager/jobs";
 import { redirectResponse } from "./patch";
 
 export const deleteJob = new Hono();
 
-deleteJob.post("/", async (c: Context<AppEnv>) => {
+deleteJob.post("/", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
 	if (!user) return redirectResponse("/recruiter/jobs");
 

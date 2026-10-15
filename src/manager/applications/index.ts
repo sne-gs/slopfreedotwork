@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import type { AppEnv } from "#gateway/shared";
+import type { ReqUsrEnv } from "#gateway/shared";
 import type { ApplicationAnswers } from "#utility/types";
 
 export type ApplicationStatus =
@@ -70,9 +70,9 @@ interface FilterParts {
 }
 
 export class ApplicationsManager {
-	#c: Context<AppEnv>;
+	#c: Context<ReqUsrEnv>;
 
-	constructor(c: Context<AppEnv>) {
+	constructor(c: Context<ReqUsrEnv>) {
 		this.#c = c;
 	}
 

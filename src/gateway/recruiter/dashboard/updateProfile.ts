@@ -1,7 +1,7 @@
 import { ServerSentEventGenerator } from "@starfederation/datastar-sdk/web";
 import { type Context, Hono } from "hono";
 import { html } from "hono/html";
-import { type AppEnv, cx } from "#gateway/shared";
+import { cx, type ReqUsrEnv } from "#gateway/shared";
 
 export const updateProfile = new Hono();
 
@@ -19,7 +19,7 @@ const profileStatusResponse = (message: string, ok: boolean): Response =>
 		);
 	});
 
-updateProfile.post("/profile", async (c: Context<AppEnv>) => {
+updateProfile.post("/profile", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
 	if (!user) return c.redirect("/login");
 

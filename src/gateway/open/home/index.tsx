@@ -1,7 +1,7 @@
 import { type Context, Hono } from "hono";
 import { deleteCookie } from "hono/cookie";
 import { Fragment } from "hono/jsx";
-import { type AppEnv, Footer, Main, Nav } from "#gateway/shared";
+import { Footer, Main, Nav, type OptUsrEnv } from "#gateway/shared";
 import { AnalysisManager } from "#manager/analysis";
 import { Companies } from "./companies";
 import { Header } from "./header";
@@ -18,8 +18,8 @@ home.get("/logout", (c) => {
 	return c.redirect("/");
 });
 
-home.get("/", async (c: Context<AppEnv>) => {
-	const analysis = new AnalysisManager(c);
+home.get("/", async (c: Context<OptUsrEnv>) => {
+	const analysis = new AnalysisManager(c.env.db);
 	const stats = await analysis.filterStatsAsync();
 	const roles = await analysis.filterRolesAsync();
 	const companies = await analysis.filterCompaniesAsync();

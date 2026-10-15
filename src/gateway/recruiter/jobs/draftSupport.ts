@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import type { AppEnv } from "#gateway/shared";
+import type { ReqUsrEnv } from "#gateway/shared";
 import { type JobRow, JobsManager } from "#manager/jobs";
 import { statusResponse } from "./patch";
 
@@ -13,7 +13,7 @@ export type JobResolution =
 	| { readonly ok: false; readonly response: Response };
 
 export const resolveJobTarget = async (
-	c: Context<AppEnv>,
+	c: Context<ReqUsrEnv>,
 ): Promise<JobResolution> => {
 	const user = c.get("user");
 	if (!user) {

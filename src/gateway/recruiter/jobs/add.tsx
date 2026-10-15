@@ -1,10 +1,10 @@
 import { type Context, Hono } from "hono";
-import type { AppEnv } from "#gateway/shared";
+import type { ReqUsrEnv } from "#gateway/shared";
 import { JobsManager } from "#manager/jobs";
 
 export const add = new Hono();
 
-add.get("/", async (c: Context<AppEnv>) => {
+add.get("/", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
 	if (!user) return c.redirect("/login");
 

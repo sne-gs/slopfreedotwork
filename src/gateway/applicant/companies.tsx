@@ -1,6 +1,6 @@
 import { type Context, Hono } from "hono";
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { type AppEnv, cx, Footer, Main, Nav } from "#gateway/shared";
+import { cx, Footer, Main, Nav, type ReqUsrEnv } from "#gateway/shared";
 
 export const companies = new Hono();
 
@@ -195,7 +195,7 @@ const pagerCurrentClass = cx(
 	"w-10",
 );
 
-companies.get("/", async (c: Context<AppEnv>) => {
+companies.get("/", async (c: Context<ReqUsrEnv>) => {
 	const page = Number(c.req.query("page") || "1");
 	const query = (c.req.query("q") || "").trim();
 	const search = `%${query}%`;

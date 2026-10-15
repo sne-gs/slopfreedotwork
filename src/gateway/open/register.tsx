@@ -2,7 +2,7 @@ import { ServerSentEventGenerator } from "@starfederation/datastar-sdk/web";
 import { type Context, Hono } from "hono";
 import { html } from "hono/html";
 import { Resend } from "resend";
-import { type AppEnv, cx, Footer, Nav } from "#gateway/shared";
+import { cx, Footer, Nav, type OptUsrEnv } from "#gateway/shared";
 
 export const register = new Hono();
 
@@ -379,7 +379,7 @@ register.get("/", (c) => {
 	);
 });
 
-register.get("/verify", async (c: Context<AppEnv>) => {
+register.get("/verify", async (c: Context<OptUsrEnv>) => {
 	const token = c.req.query("token");
 
 	if (!token) {
@@ -451,7 +451,7 @@ register.get("/verify", async (c: Context<AppEnv>) => {
 	);
 });
 
-register.post("/", async (c: Context<AppEnv>) => {
+register.post("/", async (c: Context<OptUsrEnv>) => {
 	const body = await c.req.parseBody();
 	const email = body.email as string;
 	const pass = body.pass as string;

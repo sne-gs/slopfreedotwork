@@ -1,5 +1,5 @@
 import { type Context, Hono } from "hono";
-import type { AppEnv } from "#gateway/shared";
+import type { ReqUsrEnv } from "#gateway/shared";
 import { type JobRow, JobsManager } from "#manager/jobs";
 import { parseDraftForm, questionsFromSchema } from "./draftInput";
 import { resolveJobTarget } from "./draftSupport";
@@ -33,7 +33,7 @@ const editStatusLabel = (job: JobRow): string => {
 	return `${prefix} · last saved ${job.updatedAt.slice(11, 16)} UTC`;
 };
 
-edit.get("/", async (c: Context<AppEnv>) => {
+edit.get("/", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
 	if (!user) return c.redirect("/login");
 
@@ -77,7 +77,7 @@ edit.get("/", async (c: Context<AppEnv>) => {
 	);
 });
 
-edit.post("/", async (c: Context<AppEnv>) => {
+edit.post("/", async (c: Context<ReqUsrEnv>) => {
 	const resolution = await resolveJobTarget(c);
 	if (!resolution.ok) return resolution.response;
 	const { mgr, jobId, job } = resolution;

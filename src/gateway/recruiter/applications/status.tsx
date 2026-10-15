@@ -1,7 +1,7 @@
 import { ServerSentEventGenerator } from "@starfederation/datastar-sdk/web";
 import { type Context, Hono } from "hono";
 import { html } from "hono/html";
-import { type AppEnv, cx } from "#gateway/shared";
+import { cx, type ReqUsrEnv } from "#gateway/shared";
 import {
 	type ApplicationStatus,
 	ApplicationsManager,
@@ -104,7 +104,7 @@ const statusSavedResponse = (
 
 export const status = new Hono();
 
-status.post("/:applicationId/status", async (c: Context<AppEnv>) => {
+status.post("/:applicationId/status", async (c: Context<ReqUsrEnv>) => {
 	const user = c.get("user");
 	if (!user) return c.redirect("/login");
 

@@ -1,11 +1,11 @@
 import { Hono } from "hono";
-import { requireAuth } from "#gateway/shared";
+import { useRequiredUser } from "#gateway/shared";
 import { companies } from "./companies";
 import { jobs } from "./jobs";
 
 export const applicant = new Hono();
 
-applicant.use("*", requireAuth);
+applicant.use("*", useRequiredUser);
 
 applicant.route("/jobs", jobs);
 
